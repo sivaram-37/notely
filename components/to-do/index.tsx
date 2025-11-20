@@ -1,7 +1,7 @@
 import CardWrapper from "../common/cardWrapper";
 
-const ToDo = () => {
-  return <CardWrapper>ToDo</CardWrapper>;
+const ToDoList = () => {
+  return <CardWrapper>ToDoList</CardWrapper>;
 };
 
-export default ToDo;
+export default ToDoList;

@@ -1,20 +1,23 @@
 import AllNotes from "@/components/all-notes";
 import Briefs from "@/components/briefs";
+import { AnimatedPage } from "@/components/common/animated-page";
 import CardWrapper from "@/components/common/cardWrapper";
-import ToDo from "@/components/to-do";
+import ToDoList from "@/components/to-do";
 import UpcomingEvents from "@/components/upcoming-events";
 
 export default function Home() {
   return (
-    <CardWrapper className="mt-3 bg-gray-100">
-      <UpcomingEvents />
-      <div className="mt-3 w-full flex gap-3">
-        <AllNotes />
-        <div className="w-full space-y-3">
-          <Briefs />
-          <ToDo />
+    <AnimatedPage>
+      <CardWrapper className="mt-3 bg-gray-100">
+        <UpcomingEvents />
+        <div className="mt-3 w-full flex gap-3">
+          <AllNotes />
+          <div className="w-full space-y-3">
+            <Briefs />
+            <ToDoList />
+          </div>
         </div>
-      </div>
-    </CardWrapper>
+      </CardWrapper>
+    </AnimatedPage>
   );
 }
