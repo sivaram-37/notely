@@ -106,3 +106,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Show placeholder ONLY when editor is fully empty */
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: hsl(240 3.8% 46.1%);
+  pointer-events: none;
+  height: 0;
+}
+
+/* Hide placeholder in ALL other paragraphs */
+.ProseMirror p:not(.is-editor-empty)::before,
+.ProseMirror p:not(:first-child).is-editor-empty::before {
+  display: none !important;
+}
