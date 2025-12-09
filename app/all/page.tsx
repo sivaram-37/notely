@@ -8,7 +8,7 @@ import UpcomingEvents from "@/components/upcoming-events";
 export default function Home() {
   return (
     <AnimatedPage>
-      <CardWrapper className="mt-3 bg-gray-100">
+      <CardWrapper outerClassName="mt-3">
         <UpcomingEvents />
         <div className="mt-3 w-full flex gap-3">
           <AllNotes />
