@@ -7,33 +7,53 @@ export const NotelyLogo = ({ size = 32 }) => {
         viewBox="0 0 64 64"
         className="block"
         xmlns="http://www.w3.org/2000/svg">
-        {/* Notebook Body (primary background, white stroke) */}
+        <rect x="4" y="4" width="56" height="56" rx="12" fill="var(--primary)" />
+
         <rect
-          x="8"
-          y="8"
-          width="48"
-          height="48"
-          rx="10"
-          className="fill-primary stroke-background"
+          x="14"
+          y="14"
+          width="36"
+          height="36"
+          rx="6"
+          fill="var(--background)"
+          stroke="var(--foreground)"
           strokeWidth="2"
         />
 
-        {/* Eyes (white) */}
-        <circle cx="24" cy="28" r="4" className="fill-background" />
-        <circle cx="40" cy="28" r="4" className="fill-background" />
+        <path d="M50 34 L36 50 H50 V34Z" fill="var(--chart-3)" />
 
-        {/* Smile (white stroke) */}
-        <path
-          d="M24 40 C30 46, 34 46, 40 40"
-          stroke="hsl(0 0% 100%)"
-          strokeWidth="4"
-          fill="none"
+        <line
+          x1="20"
+          y1="26"
+          x2="44"
+          y2="26"
+          stroke="var(--foreground)"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <line
+          x1="20"
+          y1="34"
+          x2="44"
+          y2="34"
+          stroke="var(--foreground)"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <line
+          x1="20"
+          y1="42"
+          x2="38"
+          y2="42"
+          stroke="var(--foreground)"
+          strokeWidth="2"
           strokeLinecap="round"
         />
       </svg>
 
-      {/* Title */}
-      <span className="text-2xl font-semibold text-primary">Notely</span>
+      <span className="text-2xl font-semibold" style={{ color: "var(--primary)" }}>
+        Notely
+      </span>
     </div>
   );
 };

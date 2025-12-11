@@ -1,7 +1,12 @@
 import { AnimatedPage } from "@/components/common/animated-page";
+import ToDo from "@/components/to-do";
 
 const page = () => {
-  return <AnimatedPage>To do Page</AnimatedPage>;
+  return (
+    <AnimatedPage>
+      <ToDo />
+    </AnimatedPage>
+  );
 };
 
 export default page;

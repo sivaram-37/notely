@@ -5,7 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const tabs = [
-  { label: "All", href: "/all" },
+  { label: "Dashboard", href: "/dashboard" },
   { label: "Notes", href: "/notes" },
   { label: "To-do", href: "/to-do" },
   { label: "Meetings", href: "/meetings" },
@@ -16,7 +16,7 @@ const MenuTab = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]">
+      <div className="bg-muted text-muted-foreground inline-flex h-9 w-fit gap-0.5 items-center justify-center rounded-lg p-[3px]">
         {tabs.map((tab) => {
           const isActive = pathname.startsWith(tab.href);
 
@@ -27,8 +27,9 @@ const MenuTab = () => {
               className={cn(
                 "inline-flex h-[calc(100%-1px)] items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring",
                 "text-foreground dark:text-muted-foreground",
-                isActive &&
-                  "bg-background text-primary border-primary dark:text-foreground dark:border-input dark:bg-input/30"
+                isActive
+                  ? "bg-primary text-white border-primary dark:text-foreground"
+                  : "hover:bg-rose-300"
               )}>
               {tab.label}
             </Link>
