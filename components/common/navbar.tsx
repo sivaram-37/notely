@@ -4,7 +4,7 @@ import Settings from "./settings";
 
 const Navbar = () => {
   return (
-    <div className="p-2 rounded-lg bg-background shadow-md border flex items-center justify-between">
+    <div className="p-2 bg-background shadow-md border flex items-center justify-between">
       <NotelyLogo />
       <MenuTab />
       <Settings />

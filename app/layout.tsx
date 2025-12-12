@@ -14,9 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased p-4 bg-rose-50 h-dvh`}>
+      <body className={"antialiased bg-rose-50 h-dvh border-b-4 border-primary"}>
         <Navbar />
-        {children}
+        <div className="p-3">{children}</div>
       </body>
     </html>
   );

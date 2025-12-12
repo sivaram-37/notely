@@ -5,8 +5,8 @@ export type Note = {
   id: string;
   title: string;
   content: string | undefined;
-  createdOnDate: string;
-  lastModifiedOnDate: string;
+  addedOn: string;
+  modifiedOn: string;
 };
 
 type NotesStore = {
