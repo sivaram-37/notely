@@ -76,6 +76,9 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.712 0.194 13.428);
+  --sonner-error-bg: color-mix(in oklch, var(--primary) 15%, white);
+  --sonner-error-text: var(--primary);
+  --sonner-error-border: color-mix(in oklch, var(--primary) 35%, transparent);
 }
 
 .dark {
@@ -134,4 +137,44 @@
 .ProseMirror p:not(.is-editor-empty)::before,
 .ProseMirror p:not(:first-child).is-editor-empty::before {
   display: none !important;
+}
+
+/* Sonner Toast */
+
+/* Toast title (main message) */
+:root [data-sonner-toast] [data-title] {
+  font-size: 1rem !important; /* 16px */
+  font-weight: 600 !important; /* semibold */
+  line-height: 1.4;
+}
+
+/* Toast description (if used later) */
+:root [data-sonner-toast] [data-description] {
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background: var(--sonner-error-bg) !important;
+  color: var(--sonner-error-text) !important;
+  border-color: var(--sonner-error-border) !important;
+  animation: shake 0.35s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
