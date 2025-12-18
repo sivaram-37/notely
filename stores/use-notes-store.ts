@@ -4,8 +4,8 @@ import { persist } from "zustand/middleware";
 export type Note = {
   id: string;
   title: string;
-  contentHtml?: string;
-  contentText?: string;
+  contentHtml: string;
+  contentText: string;
   modifiedOn: string;
   cardColor: string;
 };
