@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/common/navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Notely",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className={"antialiased bg-rose-50 h-dvh border-b-4 border-primary"}>
         <Navbar />
         <div className="p-3">{children}</div>
+        <Toaster position="top-center" />
       </body>
     </html>
   );
