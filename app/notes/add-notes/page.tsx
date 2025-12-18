@@ -1,5 +1,7 @@
+import AddNotePage from "@/components/notes/add-notes";
+
 const AddNote = () => {
-  return <div>AddNote</div>;
+  return <AddNotePage />;
 };
 
 export default AddNote;
