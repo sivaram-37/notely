@@ -4,9 +4,10 @@ import { persist } from "zustand/middleware";
 export type Note = {
   id: string;
   title: string;
-  content: string | undefined;
-  addedOn: string;
+  contentHtml?: string;
+  contentText?: string;
   modifiedOn: string;
+  cardColor: string;
 };
 
 type NotesStore = {
