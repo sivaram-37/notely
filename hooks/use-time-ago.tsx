@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { parse, differenceInSeconds } from "date-fns";
+import { parseISO, differenceInSeconds } from "date-fns";
 
 export default function useTimeAgo(dateStr: string) {
   const [timeAgo, setTimeAgo] = useState("");
@@ -7,8 +7,9 @@ export default function useTimeAgo(dateStr: string) {
   useEffect(() => {
     if (!dateStr) return;
 
-    // Parse format: MM-dd-yyyy
-    const date = parse(dateStr, "MM-dd-yyyy", new Date());
+    const date = parseISO(dateStr);
+
+    if (isNaN(date.getTime())) return;
 
     const updateTime = () => {
       const seconds = differenceInSeconds(new Date(), date);
