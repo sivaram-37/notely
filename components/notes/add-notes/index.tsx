@@ -67,10 +67,12 @@ const AddNotePage = () => {
 
     const date = getNow();
 
-    const payload: AddNoteFormType = {
+    const payload = {
       ...formData,
       id: uuidv4(),
       modifiedOn: date,
+      contentHtml: formData?.contentHtml ?? "",
+      contentText: formData?.contentText ?? "",
     };
 
     addNote(payload);

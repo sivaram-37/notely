@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Note } from "@/stores/use-notes-store";
 import { Pencil, Trash2 } from "lucide-react";
 
-const NoteCard = ({ note }: { note: Note }) => {
+const NoteCard = ({ note, searchText }: { note: Note; searchText: string }) => {
   const timeAgo = useTimeAgo(note.modifiedOn);
 
   return (
@@ -27,11 +27,13 @@ const NoteCard = ({ note }: { note: Note }) => {
       </div>
 
       {/* Title */}
-      <h3 className="text-primary font-semibold line-clamp-1">{note.title}</h3>
+      <h3 className="text-primary font-semibold line-clamp-1">
+        {highlightText(note.title, searchText)}
+      </h3>
 
       {/* Content */}
       <p className="mt-2 text-sm text-gray-700 line-clamp-3">
-        {note.contentText?.replace(/\n+/g, " ✶ ")}
+        {highlightText(note.contentText.replace(/\n+/g, " ✶ "), searchText)}
       </p>
 
       {/* Time Ago */}
@@ -41,3 +43,19 @@ const NoteCard = ({ note }: { note: Note }) => {
 };
 
 export default NoteCard;
+
+const highlightText = (text: string, query: string) => {
+  if (!query) return text;
+
+  const regex = new RegExp(`(${query})`, "gi");
+
+  return text.split(regex).map((part, i) =>
+    regex.test(part) ? (
+      <mark key={i} className="bg-gray-50 text-black rounded px-0.5">
+        {part}
+      </mark>
+    ) : (
+      part
+    )
+  );
+};
