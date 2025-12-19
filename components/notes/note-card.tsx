@@ -3,7 +3,15 @@ import { cn } from "@/lib/utils";
 import { Note } from "@/stores/use-notes-store";
 import { Pencil, Trash2 } from "lucide-react";
 
-const NoteCard = ({ note, searchText }: { note: Note; searchText: string }) => {
+const NoteCard = ({
+  note,
+  searchText,
+  handleCardClick,
+}: {
+  note: Note;
+  searchText: string;
+  handleCardClick: () => void;
+}) => {
   const timeAgo = useTimeAgo(note.modifiedOn);
 
   return (
@@ -12,7 +20,8 @@ const NoteCard = ({ note, searchText }: { note: Note; searchText: string }) => {
         "group relative p-4 h-36 rounded-lg shadow-sm border cursor-pointer transition-all flex flex-col select-none",
         "hover:shadow-md hover:scale-[1.02] hover:shadow-primary hover:border-primary",
         note.cardColor
-      )}>
+      )}
+      onClick={handleCardClick}>
       {/* Actions */}
       <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition">
         <button onClick={() => {}} className="p-1.5 rounded-md bg-white/70 hover:bg-white shadow">

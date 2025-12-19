@@ -1,4 +1,4 @@
-import { Notebook } from "lucide-react";
+import { Notebook, Plus } from "lucide-react";
 import { Button } from "../ui/button";
 
 const EmptyNote = ({ handleAddNote }: { handleAddNote: () => void }) => {
@@ -8,7 +8,7 @@ const EmptyNote = ({ handleAddNote }: { handleAddNote: () => void }) => {
       <h3 className="mt-4 text-xl font-medium">No notes yet</h3>
       <p className="text-muted-foreground mt-1">Create your first note to get started.</p>
       <Button className="mt-2" onClick={handleAddNote}>
-        Add Note <Notebook />
+        <Plus /> Add Note <Notebook />
       </Button>
     </div>
   );

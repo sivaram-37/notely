@@ -13,17 +13,22 @@ export type Note = {
 type NotesStore = {
   notes: Note[];
   addNote: (note: Note) => void;
+  getNoteById: (id: string) => Note | undefined;
 };
 
 export const useNotesStore = create<NotesStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       notes: [],
 
       addNote: (note) =>
         set((state) => ({
           notes: [...state.notes, note],
         })),
+
+      getNoteById: (id) => {
+        return get().notes.find((n) => n.id === id);
+      },
     }),
     {
       name: "notely-notes-storage",

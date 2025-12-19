@@ -30,6 +30,10 @@ const Notes = () => {
     setSearchOpen(false);
   }, [setSearchText]);
 
+  const handleCardClick = useCallback((id: string) => {
+    redirect(`/notes/${id}`);
+  }, []);
+
   return (
     <>
       <PageHeader
@@ -48,7 +52,12 @@ const Notes = () => {
       ) : (
         <div className="p-4 mt-2 h-[calc(100vh-150px)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto">
           {filteredNotes.map((note) => (
-            <NoteCard key={note.id} note={note} searchText={searchText} />
+            <NoteCard
+              key={note.id}
+              note={note}
+              searchText={searchText}
+              handleCardClick={() => handleCardClick(note.id)}
+            />
           ))}
         </div>
       )}

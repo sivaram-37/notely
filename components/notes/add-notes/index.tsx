@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { AddNoteFormType, addNoteSchema } from "./schema";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { CARD_COLORS, cn, getRandomCardColor } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RichTextEditor from "@/components/common/rich-text-editor";
 import { toast } from "sonner";
@@ -16,27 +16,6 @@ import Loading from "@/app/loading";
 import { useNotesStore } from "@/stores/use-notes-store";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-
-export const CARD_COLORS = [
-  "bg-red-300",
-  "bg-orange-300",
-  "bg-amber-300",
-  "bg-yellow-300",
-  "bg-lime-300",
-  "bg-green-300",
-  "bg-emerald-300",
-  "bg-teal-300",
-  "bg-cyan-300",
-  "bg-sky-300",
-  "bg-blue-300",
-  "bg-indigo-300",
-  "bg-violet-300",
-  "bg-purple-300",
-  "bg-fuchsia-300",
-  "bg-slate-300",
-];
-
-const getRandomCardColor = () => CARD_COLORS[Math.floor(Math.random() * CARD_COLORS.length)];
 
 const getNow = () => new Date().toISOString();
 
@@ -76,7 +55,6 @@ const AddNotePage = () => {
     };
 
     addNote(payload);
-    console.log("payload", payload);
     await new Promise((res) => setTimeout(res, 300));
     redirect("/notes");
   };
