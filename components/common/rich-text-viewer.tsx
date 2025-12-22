@@ -15,8 +15,7 @@ export default function RichTextViewer({ value }: RichTextViewerProps) {
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class:
-          "ProseMirror text-base leading-relaxed bg-transparent outline-none select-text text-base",
+        class: "ProseMirror leading-relaxed bg-transparent outline-none select-text text-base",
       },
     },
   });

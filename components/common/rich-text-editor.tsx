@@ -31,7 +31,7 @@ export default function RichTextEditor({
     editorProps: {
       attributes: {
         class:
-          "ProseMirror h-[calc(100vh-248px)] overflow-y-auto text-base p-3 bg-transparent outline-none leading-relaxed",
+          "ProseMirror h-[calc(100vh-270px)] overflow-y-auto text-base p-3 bg-transparent outline-none leading-relaxed",
         "data-placeholder": "Write your note here…",
       },
     },
