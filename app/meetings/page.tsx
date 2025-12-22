@@ -1,7 +1,7 @@
 import { AnimatedPage } from "@/components/common/animated-page";
 import Meetings from "@/components/meetings";
 
-const page = () => {
+const Page = () => {
   return (
     <AnimatedPage>
       <Meetings />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

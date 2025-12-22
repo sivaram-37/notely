@@ -16,7 +16,7 @@ const MenuTab = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="bg-muted text-muted-foreground inline-flex h-9 w-fit gap-0.5 items-center justify-center rounded-lg p-[3px]">
+      <div className="bg-muted text-muted-foreground inline-flex h-9 w-fit gap-0.5 items-center justify-center rounded-lg p-0.75">
         {tabs.map((tab) => {
           const isActive = pathname.startsWith(tab.href);
 

@@ -7,36 +7,51 @@ const NoteCard = ({
   note,
   searchText,
   handleCardClick,
+  handleEditNote,
+  handleDeleteNote,
 }: {
   note: Note;
   searchText: string;
   handleCardClick: () => void;
+  handleEditNote: () => void;
+  handleDeleteNote: () => void;
 }) => {
   const timeAgo = useTimeAgo(note.modifiedOn);
 
   return (
     <div
+      onClick={handleCardClick}
       className={cn(
-        "group relative p-4 h-36 rounded-lg shadow-sm border cursor-pointer transition-all flex flex-col select-none",
-        "hover:shadow-md hover:scale-[1.02] hover:shadow-primary hover:border-primary",
+        "group relative p-4 h-36 rounded-xl border shadow-sm cursor-pointer",
+        "transition-all hover:shadow-md hover:border-primary hover:shadow-primary",
         note.cardColor
-      )}
-      onClick={handleCardClick}>
-      {/* Actions */}
-      <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition">
-        <button onClick={() => {}} className="p-1.5 rounded-md bg-white/70 hover:bg-white shadow">
-          <Pencil size={14} />
-        </button>
+      )}>
+      {/* Floating action pill */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={cn(
+          "absolute -top-4 right-1.5 z-10",
+          "opacity-0 group-hover:opacity-100",
+          "translate-y-1 group-hover:translate-y-0",
+          "transition-all duration-200"
+        )}>
+        <div className="relative flex items-center gap-1 rounded-full px-1.5 py-1 shadow-sm bg-white border">
+          <button
+            onClick={handleEditNote}
+            className="p-1.5 rounded-full hover:bg-muted transition cursor-pointer">
+            <Pencil size={14} />
+          </button>
 
-        <button
-          onClick={() => {}}
-          className="p-1.5 rounded-md bg-white/70 hover:bg-white text-red-600 shadow">
-          <Trash2 size={14} />
-        </button>
+          <button
+            onClick={handleDeleteNote}
+            className="p-1.5 rounded-full hover:bg-red-100 text-red-600 transition cursor-pointer">
+            <Trash2 size={14} />
+          </button>
+        </div>
       </div>
 
       {/* Title */}
-      <h3 className="text-primary font-semibold line-clamp-1">
+      <h3 className="mt-1 text-primary font-semibold line-clamp-1">
         {highlightText(note.title, searchText)}
       </h3>
 
@@ -45,12 +60,11 @@ const NoteCard = ({
         {highlightText(note.contentText.replace(/\n+/g, " ✶ "), searchText)}
       </p>
 
-      {/* Time Ago */}
+      {/* Time */}
       <p className="text-xs text-gray-600 text-right mt-auto">{timeAgo}</p>
     </div>
   );
 };
-
 export default NoteCard;
 
 const highlightText = (text: string, query: string) => {

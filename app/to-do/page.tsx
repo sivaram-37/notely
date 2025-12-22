@@ -1,7 +1,7 @@
 import { AnimatedPage } from "@/components/common/animated-page";
 import ToDo from "@/components/to-do";
 
-const page = () => {
+const Page = () => {
   return (
     <AnimatedPage>
       <ToDo />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

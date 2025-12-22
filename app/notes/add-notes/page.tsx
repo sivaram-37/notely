@@ -1,7 +1,7 @@
-import AddNotePage from "@/components/notes/add-notes";
+import AddNote from "@/components/notes/add-notes";
 
-const AddNote = () => {
-  return <AddNotePage />;
+const Page = () => {
+  return <AddNote isEdit={false} />;
 };
 
-export default AddNote;
+export default Page;

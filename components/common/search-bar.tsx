@@ -28,20 +28,13 @@ const SearchBar = ({
     }
   }, [open]);
 
-  // 🔥 Clear search when closed
+  // Clear text when closed
   useEffect(() => {
-    if (!open) {
-      setSearchText("");
-    }
+    if (!open) setSearchText("");
   }, [open, setSearchText]);
 
-  const handleBlur = () => {
-    // Delay allows click on search button to register
-    setTimeout(() => {
-      if (!searchText.trim()) {
-        setOpen(false);
-      }
-    }, 100);
+  const toggleSearch = () => {
+    setOpen((prev) => !prev);
   };
 
   return (
@@ -51,19 +44,15 @@ const SearchBar = ({
         animate={{ width: open ? "300px" : "36px", height: "36px" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
         className="flex items-center bg-white rounded-full overflow-hidden border shadow-md">
-        <motion.button
-          onClick={() => {
-            if (open) setOpen(false);
-            else setOpen(true);
-          }}
+        <button
+          type="button"
+          onClick={toggleSearch}
           className={cn(
             "h-9 w-9 rounded-full cursor-pointer flex items-center justify-center hover:bg-muted",
-            open && "ml-[5px] bg-primary hover:bg-rose-600/90"
-          )}
-          initial={false}
-          animate={{ x: open ? -5 : 0 }}>
+            open && "bg-primary hover:bg-rose-600/90"
+          )}>
           <Search size={20} className={cn("text-primary", open && "text-white")} />
-        </motion.button>
+        </button>
 
         <AnimatePresence>
           {open && (
@@ -79,7 +68,6 @@ const SearchBar = ({
               transition={{ duration: 0.25 }}
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              onBlur={handleBlur}
             />
           )}
         </AnimatePresence>

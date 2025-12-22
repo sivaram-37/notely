@@ -2,14 +2,16 @@
 
 import { useNotesStore } from "@/stores/use-notes-store";
 import PageHeader from "../common/page-header";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { redirect } from "next/navigation";
 import NoteCard from "./note-card";
 import EmptyNote from "./empty-note";
 import NoSearchResults from "./no-search-results";
+import { toast } from "sonner";
 
 const Notes = () => {
   const notes = useNotesStore((s) => s.notes);
+  const deleteNote = useNotesStore((s) => s.deleteNote);
   const [searchText, setSearchText] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -25,14 +27,35 @@ const Notes = () => {
     );
   }, [notes, searchText]);
 
-  const handleOnClearSearch = useCallback(() => {
+  const handleOnClearSearch = () => {
     setSearchText("");
     setSearchOpen(false);
-  }, [setSearchText]);
+  };
 
-  const handleCardClick = useCallback((id: string) => {
+  const handleCardClick = (id: string) => {
     redirect(`/notes/${id}`);
-  }, []);
+  };
+
+  const handleEditNote = (id: string) => {
+    redirect(`/notes/${id}?edit=true`);
+  };
+
+  const handleDeleteNote = (id: string) => {
+    toast("Delete this note?", {
+      description: "You won’t be able to recover it later.",
+      duration: Infinity,
+      action: {
+        label: "Delete",
+        onClick: () => {
+          deleteNote(id);
+          toast.success("Note deleted");
+        },
+      },
+      actionButtonStyle: { backgroundColor: "rgb(239 68 68)" },
+      cancel: { label: "Cancel", onClick: () => toast.dismiss() },
+      cancelButtonStyle: { border: "1px solid #333" },
+    });
+  };
 
   return (
     <>
@@ -57,6 +80,8 @@ const Notes = () => {
               note={note}
               searchText={searchText}
               handleCardClick={() => handleCardClick(note.id)}
+              handleEditNote={() => handleEditNote(note.id)}
+              handleDeleteNote={() => handleDeleteNote(note.id)}
             />
           ))}
         </div>

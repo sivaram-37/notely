@@ -1,8 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Palette, Save } from "lucide-react";
-import Link from "next/link";
+import { Palette } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AddNoteFormType, addNoteSchema } from "./schema";
@@ -13,18 +11,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import RichTextEditor from "@/components/common/rich-text-editor";
 import { toast } from "sonner";
 import Loading from "@/app/loading";
-import { useNotesStore } from "@/stores/use-notes-store";
+import { Note, useNotesStore } from "@/stores/use-notes-store";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
+import BackButton from "@/components/common/back-button";
+import SaveButton from "@/components/common/save-button";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const getNow = () => new Date().toISOString();
 
-const AddNotePage = () => {
+const AddNote = ({ isEdit, noteData }: { isEdit: boolean; noteData?: Note }) => {
   const titleToastShownRef = useRef(false);
   const [mounted, setMounted] = useState(false);
   const [cardColor, setCardColor] = useState<string>("bg-red-300");
   const [isLoading, setLoading] = useState<boolean>(false);
   const addNote = useNotesStore((s) => s.addNote);
+  const updateNote = useNotesStore((s) => s.updateNote);
 
   const formId = "add-note";
   const form = useForm<AddNoteFormType>({
@@ -44,28 +47,46 @@ const AddNotePage = () => {
   const handleOnSave = async (formData: AddNoteFormType) => {
     setLoading(true);
 
-    const date = getNow();
+    const now = getNow();
 
-    const payload = {
-      ...formData,
-      id: uuidv4(),
-      modifiedOn: date,
-      contentHtml: formData?.contentHtml ?? "",
-      contentText: formData?.contentText ?? "",
-    };
+    if (isEdit && noteData) {
+      const payload: Note = {
+        ...noteData,
+        ...formData,
+        modifiedOn: now,
+        contentHtml: formData.contentHtml ?? "",
+        contentText: formData.contentText ?? "",
+      };
 
-    addNote(payload);
+      updateNote(payload);
+    } else {
+      const payload: Note = {
+        ...formData,
+        id: uuidv4(),
+        modifiedOn: now,
+        contentHtml: formData.contentHtml ?? "",
+        contentText: formData.contentText ?? "",
+      };
+
+      addNote(payload);
+    }
+
     await new Promise((res) => setTimeout(res, 300));
     redirect("/notes");
   };
 
   useEffect(() => {
-    const random = getRandomCardColor();
-    setCardColor(random);
-    form.setValue("cardColor", random);
+    if (isEdit && noteData) {
+      form.reset(noteData);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCardColor(noteData.cardColor);
+    } else {
+      const random = getRandomCardColor();
+      setCardColor(random);
+      form.setValue("cardColor", random);
+    }
     setMounted(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [form, isEdit, noteData]);
 
   // for showing toast message for error
   useEffect(() => {
@@ -89,20 +110,17 @@ const AddNotePage = () => {
 
   return (
     <>
+      <h1 className="text-xl font-semibold text-center">{isEdit ? "Edit Note" : "Add Note"}</h1>
       <div className="mt-2 mb-4 flex items-center justify-between">
-        <Link
-          href={"/notes"}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition">
-          <ArrowLeft size={18} />
-          <span className="text-sm font-medium">Back</span>
-        </Link>
-
-        <Button
-          className="inline-flex items-center gap-2 px-4 py-2 active:scale-[0.98] transition-all"
-          form={formId}>
-          <Save />
-          Save
-        </Button>
+        <BackButton href="/notes" label="Back to notes" />
+        <div className="flex gap-1">
+          {isEdit && noteData && (
+            <Button asChild variant={"outline"}>
+              <Link href={`/notes/${noteData.id}`}>Back to view note</Link>
+            </Button>
+          )}
+          <SaveButton formId={formId} />
+        </div>
       </div>
 
       <Form {...form}>
@@ -119,7 +137,7 @@ const AddNotePage = () => {
                 <FormControl>
                   <Input
                     placeholder="Title"
-                    className="h-14 w-full bg-transparent text-2xl! font-semibold outline-none placeholder:text-muted-foreground border-none rounded-none shadow-none"
+                    className="h-12 w-full bg-transparent text-2xl! font-semibold outline-none placeholder:text-muted-foreground border-none rounded-none shadow-none"
                     {...field}
                   />
                 </FormControl>
@@ -174,4 +192,4 @@ const AddNotePage = () => {
   );
 };
 
-export default AddNotePage;
+export default AddNote;

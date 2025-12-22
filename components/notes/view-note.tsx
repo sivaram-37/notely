@@ -1,41 +1,16 @@
-"use client";
-
-import { useNotesStore } from "@/stores/use-notes-store";
-import { ArrowLeft, Edit } from "lucide-react";
-import { useParams } from "next/navigation";
-import { Button } from "../ui/button";
-import Link from "next/link";
+import { AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useNotesHydrated } from "@/hooks/use-notes-hydrated";
 import RichTextViewer from "../common/rich-text-viewer";
-import NoteNotFound from "./note-not-found";
+import { Note } from "@/stores/use-notes-store";
+import EditButton from "../common/edit-button";
+import BackButton from "../common/back-button";
 
-const ViewNote = () => {
-  const { note: noteId } = useParams<{ note: string }>();
-
-  const hydrated = useNotesHydrated();
-  const noteData = useNotesStore((s) => s.getNoteById(noteId));
-
-  if (!hydrated) return null;
-
-  if (!noteData) {
-    return <NoteNotFound />;
-  }
-
+const ViewNote = ({ noteData }: { noteData: Note }) => {
   return (
     <div className="h-full flex flex-col">
       <div className="mt-2 mb-4 flex items-center justify-between">
-        <Link
-          href={"/notes"}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition">
-          <ArrowLeft size={18} />
-          <span className="text-sm font-medium">Back</span>
-        </Link>
-
-        <Button className="inline-flex items-center gap-2 px-4 py-2 active:scale-[0.98] transition-all">
-          <Edit />
-          Edit
-        </Button>
+        <BackButton href="/notes" label="Back to notes" />
+        <EditButton href={`/notes/${noteData.id}?edit=true`} />
       </div>
 
       <div className={cn("flex-1 flex flex-col rounded-md border shadow-sm", noteData.cardColor)}>
@@ -45,7 +20,20 @@ const ViewNote = () => {
         </h1>
 
         {/* Content */}
-        <RichTextViewer value={noteData.contentHtml} />
+        {!!noteData.contentText ? (
+          <RichTextViewer value={noteData.contentHtml} />
+        ) : (
+          <div className="flex-1 px-3 pb-2 mt-2 flex justify-center items-center">
+            <div className="bg-white w-80 p-2 rounded-md flex flex-col gap-2 items-center">
+              <h2 className="text-primary flex gap-2">
+                <AlertCircle />
+                Empty Note!
+              </h2>
+              <span>Click Edit to edit the note</span>
+              <EditButton href={`/notes/${noteData.id}?edit=true`} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-import ViewNote from "@/components/notes/view-note";
+import ViewEditPage from "@/components/notes/view-edit-index";
 
 const Page = () => {
-  return <ViewNote />;
+  return <ViewEditPage />;
 };
 
 export default Page;
