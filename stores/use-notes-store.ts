@@ -15,6 +15,7 @@ type NotesStore = {
   addNote: (note: Note) => void;
   getNoteById: (id: string) => Note | undefined;
   updateNote: (note: Note) => void;
+  deleteNote: (id: string) => void;
 };
 
 export const useNotesStore = create<NotesStore>()(
@@ -34,6 +35,11 @@ export const useNotesStore = create<NotesStore>()(
       updateNote: (updatedNote) =>
         set((state) => ({
           notes: state.notes.map((n) => (n.id === updatedNote.id ? updatedNote : n)),
+        })),
+
+      deleteNote: (id) =>
+        set((state) => ({
+          notes: state.notes.filter((n) => n.id !== id),
         })),
     }),
     {
