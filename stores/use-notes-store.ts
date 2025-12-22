@@ -14,6 +14,7 @@ type NotesStore = {
   notes: Note[];
   addNote: (note: Note) => void;
   getNoteById: (id: string) => Note | undefined;
+  updateNote: (note: Note) => void;
 };
 
 export const useNotesStore = create<NotesStore>()(
@@ -29,6 +30,11 @@ export const useNotesStore = create<NotesStore>()(
       getNoteById: (id) => {
         return get().notes.find((n) => n.id === id);
       },
+
+      updateNote: (updatedNote) =>
+        set((state) => ({
+          notes: state.notes.map((n) => (n.id === updatedNote.id ? updatedNote : n)),
+        })),
     }),
     {
       name: "notely-notes-storage",
