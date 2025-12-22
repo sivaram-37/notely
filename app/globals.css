@@ -79,6 +79,9 @@
   --sonner-error-bg: color-mix(in oklch, var(--primary) 15%, white);
   --sonner-error-text: var(--primary);
   --sonner-error-border: color-mix(in oklch, var(--primary) 35%, transparent);
+  --sonner-success-bg: color-mix(in oklch, oklch(0.72 0.18 145) 15%, white);
+  --sonner-success-text: oklch(0.52 0.18 145);
+  --sonner-success-border: color-mix(in oklch, oklch(0.72 0.18 145) 35%, transparent);
 }
 
 .dark {
@@ -152,6 +155,7 @@
 :root [data-sonner-toast] [data-description] {
   font-size: 0.95rem !important;
   font-weight: 500 !important;
+  color: #999 !important;
 }
 
 [data-sonner-toast][data-type="error"] {
@@ -159,6 +163,12 @@
   color: var(--sonner-error-text) !important;
   border-color: var(--sonner-error-border) !important;
   animation: shake 0.35s ease-in-out;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background: var(--sonner-success-bg) !important;
+  color: var(--sonner-success-text) !important;
+  border-color: var(--sonner-success-border) !important;
 }
 
 @keyframes shake {
