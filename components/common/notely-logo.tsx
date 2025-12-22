@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 export const NotelyLogo = ({ size = 32 }) => {
   return (
-    <div className="flex items-center gap-2">
+    <Link href={"/dashboard"} className="flex items-center gap-2">
       <svg
         width={size}
         height={size}
@@ -54,6 +56,6 @@ export const NotelyLogo = ({ size = 32 }) => {
       <span className="text-2xl font-semibold" style={{ color: "var(--primary)" }}>
         Notely
       </span>
-    </div>
+    </Link>
   );
 };

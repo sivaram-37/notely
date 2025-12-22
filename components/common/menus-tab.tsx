@@ -29,7 +29,7 @@ const MenuTab = () => {
                 "text-foreground dark:text-muted-foreground",
                 isActive
                   ? "bg-primary text-white border-primary dark:text-foreground"
-                  : "hover:bg-rose-300"
+                  : "hover:border-primary hover:bg-pink-100"
               )}>
               {tab.label}
             </Link>
