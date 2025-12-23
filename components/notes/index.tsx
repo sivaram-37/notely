@@ -77,7 +77,7 @@ const Notes = () => {
           onClearSearch={handleOnClearSearch}
         />
       ) : (
-        <div className="p-4 mt-2 h-[calc(100vh-150px)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto">
+        <div className="p-4 mt-2 h-[calc(100vh-150px)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 content-start overflow-y-auto">
           {filteredNotes.map((note) => (
             <NoteCard
               key={note.id}
