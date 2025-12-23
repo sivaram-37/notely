@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { redirect } from "next/navigation";
 import NoteCard from "./note-card";
 import EmptyNote from "./empty-note";
-import NoSearchResults from "./no-search-results";
+import NoSearchResults from "../common/no-search-results";
 import { toast } from "sonner";
 
 const Notes = () => {
@@ -48,7 +48,7 @@ const Notes = () => {
         label: "Delete",
         onClick: () => {
           deleteNote(id);
-          toast.success("Note deleted");
+          toast.success("Note deleted", { duration: 1000 });
         },
       },
       actionButtonStyle: { backgroundColor: "rgb(239 68 68)" },
@@ -71,7 +71,11 @@ const Notes = () => {
       {notes.length === 0 ? (
         <EmptyNote handleAddNote={handleAddNote} />
       ) : filteredNotes.length === 0 ? (
-        <NoSearchResults searchText={searchText} onClearSearch={handleOnClearSearch} />
+        <NoSearchResults
+          title="notes"
+          searchText={searchText}
+          onClearSearch={handleOnClearSearch}
+        />
       ) : (
         <div className="p-4 mt-2 h-[calc(100vh-150px)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto">
           {filteredNotes.map((note) => (

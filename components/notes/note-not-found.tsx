@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Plus, Notebook } from "lucide-react";
+import { ArrowLeft, Plus, NotepadText } from "lucide-react";
 import Link from "next/link";
 
 const NoteNotFound = () => {
@@ -35,7 +35,7 @@ const NoteNotFound = () => {
 
             <Button asChild>
               <Link href="/notes/add-notes">
-                <Plus /> Add Note <Notebook />
+                <Plus /> Add Note <NotepadText />
               </Link>
             </Button>
           </div>
