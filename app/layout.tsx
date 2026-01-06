@@ -15,7 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={"antialiased bg-rose-50 min-h-dvh flex flex-col border-b-4 border-primary"}>
+      <body
+        className={"antialiased bg-rose-50/60 min-h-dvh flex flex-col border-b-4 border-primary"}>
         <Navbar />
         <main className="p-3 flex-1 overflow-hidden">{children}</main>
         <Toaster position="top-center" />
