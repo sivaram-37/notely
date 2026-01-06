@@ -67,7 +67,7 @@ const ToDo = () => {
       )}
 
       {/* Add Todo */}
-      {openModal && <AddTodo openModal={openModal} setOpenModal={setOpenModal} />}
+      {openModal && <AddTodo openModal={openModal} setOpenModal={setOpenModal} isEdit={false} />}
     </>
   );
 };
